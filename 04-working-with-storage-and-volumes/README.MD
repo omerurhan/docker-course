@@ -96,17 +96,49 @@ Example: using a named volume with Cassandra
 docker volume create --label example=cassandra cass-shared
 
 # Start a Cassandra container using the named volume
-docker run -d --name cass2 \
+docker run -d --name cass1 \
 	--mount type=volume,source=cass-shared,target=/var/lib/cassandra/data \
 	cassandra:2.2
 
 # Connect to Cassandra from a temporary client container
-docker run -it --rm --link cass2:cass cassandra:2.2 cqlsh cass
+docker run -it --rm --link cass1:cass cassandra:2.2 cqlsh cass
 
 # In cqlsh you can create a keyspace and query schema_keyspaces as shown in the exercises.
+select *
+from system.schema_keyspaces
+where keyspace_name = 'docker_hello_world';
 
-# When finished, remove containers and the volume
+create keyspace docker_hello_world
+with replication = {
+ 'class' : 'SimpleStrategy',
+ 'replication_factor': 1
+};
+
+select *
+from system.schema_keyspaces
+where keyspace_name = 'docker_hello_world';
+
+# Leave and stop the current container
+quit 
+
 docker rm -vf cass2 || true
+
+# Create new cassandra container and test it
+docker run -d \
+ --volume cass-shared:/var/lib/cassandra/data \
+ --name cass2 \
+ cassandra:2.2
+
+docker run -it --rm \
+ --link cass2:cass \
+ cassandra:2.2 \
+ cqlsh cass
+select *
+from system.schema_keyspaces
+where keyspace_name = 'docker_hello_world';
+
+
+# delete volume
 docker volume rm cass-shared || true
 ```
 
