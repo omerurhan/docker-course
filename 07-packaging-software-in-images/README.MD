@@ -81,3 +81,7 @@ docker container run --name=healthcheck_ex -d \
 nginx:1.13-alpine
 
 ````
+## BONUS 
+
+Follow https://docs.docker.com/guides/reactjs/containerize/ instructions and create sample react docker container from
+Dockerfile
