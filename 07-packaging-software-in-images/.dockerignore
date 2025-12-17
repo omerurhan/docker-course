@@ -1,3 +1,1 @@
-mailer-base.df
-mailer-logging.df
-mailer-live.df
+Dockerfile.*

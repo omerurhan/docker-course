@@ -1,5 +1,5 @@
-FROM debian:buster-20190910
-LABEL maintainer="dia@allingeek.com"
+FROM debian:bookworm-20251208
+LABEL maintainer="omer@allingeek.com"
 RUN groupadd -r -g 2200 example && \
  useradd -rM -g example -u 2200 example
 ENV APPROOT="/app" \

@@ -1,0 +1,10 @@
+FROM omerurhan/dockercouse:0.6
+RUN apt-get update && \
+apt-get install -y netcat-openbsd
+COPY ["./log-impl", "${APPROOT}"] 
+## ADD ["./live-impl", "${APPROOT}"]
+RUN chmod a+x ${APPROOT}/${APP} && \
+chown example:example /var/log
+USER example:example
+VOLUME ["/var/log"]
+CMD ["/var/log/mailer.log"]
