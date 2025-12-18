@@ -32,6 +32,23 @@ docker image ls
 ````
 ## Record metadata at image build time
 
+### Orchestrating the build with make
 ````
+# make practices
+make clean
+make metadata
+make app-artifacts
+make lint-dockerfile
+make app-image-simple-runtime
+make app-image-all-in-one
+make image-tests-simple-runtime
+make inspect-image-labels-simple-runtime
+````
+
+## Testing images in a build pipeline
+
+````
+# run command and fileexisting test for simple-runtime container
+make image-tests-simple-runtime BUILD_ID=$BUILD_ID
 ````
 
