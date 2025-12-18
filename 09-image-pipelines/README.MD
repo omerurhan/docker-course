@@ -32,7 +32,7 @@ docker image ls
 ````
 ## Record metadata at image build time
 
-### Orchestrating the build with make
+### Orchestrating the build with make
 ````
 # make practices
 make clean
