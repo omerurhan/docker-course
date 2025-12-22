@@ -12,9 +12,10 @@ docker stack deploy --compose-file docker-compose.yml multi-tier-app
 
 # create secret
 echo 'mydbpass72' | docker secret create \
- ch13_multi_tier_app-POSTGRES_PASSWORD
+ ch13_multi_tier_app-POSTGRES_PASSWORD -
 
-# docker secret ls --format "table {{.ID}} {{.Name}} {{.CreatedAt}}" 
+# display secret infos 
+docker secret ls --format "table {{.ID}} {{.Name}} {{.CreatedAt}}" 
 
 # deploy again
 docker stack deploy \
@@ -51,7 +52,7 @@ docker service inspect --format '{{ json .Endpoint.VirtualIPs }}' \
 ````
 # create new service
 docker service create --name echo --publish '8000:8' busybox:1.29 \
- nc -v -lk -p 8 -e /bin/ca
+ nc -v -lk -p 8 -e /bin/cat
 
 # check from host
 echo "Hello netcat my old friend, I've come to test connections again." \
@@ -96,10 +97,10 @@ docker service ps multi-tier-app_api \
 --format 'table {{ .Name }} {{ .Node }}'
 
 # display node hostname, role, labels
-for node_id in `docker node ls -q | head`; do
+for node_id in $(docker node ls -q | head); do
 docker node inspect \
---format '{{.Description.Hostname}} {{.Spec.Role}} {{.Spec.Labels}}'\
-"${node_id}";
+--format '{{.Description.Hostname}} {{.Spec.Role}} {{.Spec.Labels}}' \
+ "${node_id}";
 done;
 
 # add record to postgre
