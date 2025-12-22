@@ -24,7 +24,7 @@ DEPLOY_ENV=stage docker stack deploy \
 # remove stack
 docker stack rm greetings_stage
 ````
-## Secrets - A special kind of configuration
+## Secrets - A special kind of configuration
 
 ````
 # deploy secure greetings app
